@@ -1,0 +1,14 @@
+#!/bin/sh
+# present an "application menu" (set in ~/.mario.menu)
+menu=~/.mario.menu
+count=$(wc -l "$menu"|awk '{print $1}')
+len=$(awk '{print length}' "$menu"|sort -rn|head -1)
+# GNUism
+# len=$(wc -L "$menu"|awk '{print $1}')
+choice=$(rofi -input "$menu" \
+              -dmenu -p '' \
+              -i \
+              -monitor -3 \
+              -width -"$(("$len" + 2))" \
+              -lines "$count")
+env MARIO=mario "$choice" "$@"
