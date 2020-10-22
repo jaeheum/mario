@@ -11,4 +11,4 @@ choice=$(rofi -input "$menu" \
               -monitor -3 \
               -width -"$(("$len" + 2))" \
               -lines "$count")
-env MARIO=mario "$choice" "$@"
+exec "$choice" "$@"

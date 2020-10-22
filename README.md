@@ -67,19 +67,19 @@ map 0xff67 pass_selection_to_program mario
 
 #### Integrating with Mario
 
-`mario` sets an environment variable `MARIO` when it runs the chosen menu item.
-For example, `wiki` can be rewritten as
+For example, `wiki` above can be rewritten as
 
 ```
 #!/bin/sh
-case "$MARIO" in
-mario) kitty @ launch --no-response sr -t wikipedia "$@";;
-*)                                  sr -t wikipedia "$@";;
-esac
+if [ -t 0 ]; then
+  sr -t wikipedia "$@";
+else
+  kitty @ launch --no-response sr -t wikipedia "$@";
+fi
 ```
 
 `wiki` opens a new window and displays result there when it is run from `mario`
-i.e. `MARIO` is set to `mario`. When `wiki` is run from a usual kitty window,
+i.e. non-interactively. When `wiki` is run from a usual kitty window,
 it displays the result in the window. 
 
 #### Look and Feel of the Menu
